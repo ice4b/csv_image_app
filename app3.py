@@ -24,6 +24,8 @@ if csv_file:
 
     name_column = st.selectbox("Selecciona la columna del nombre", df.columns)
 
+    price_column = st.selectbox("Selecciona la columna del precio", df.columns)
+
     if image_column:
         st.subheader("Vista de previa de imágenes")
 
@@ -35,7 +37,7 @@ if csv_file:
                     img_data = base64.b64decode(row[image_column])
                     img = Image.open(BytesIO(img_data))
                     # st.image(img, caption=f"Imagen {idx}", use_container_width=True)    # The use_column_width parameter has been deprecated and will be removed in a future release. Please utilize the use_container_width parameter instead.
-                    st.image(img, caption=f"{idx} {row[name_column]}", use_container_width=True)    # The use_column_width parameter has been deprecated and will be removed in a future release. Please utilize the use_container_width parameter instead.
+                    st.image(img, caption=f"{idx} {row[name_column]} ${row[price_column]}", use_container_width=True)    # The use_column_width parameter has been deprecated and will be removed in a future release. Please utilize the use_container_width parameter instead.
                 except Exception as e:
                     st.warning(f"Error al mostrar imagen {idx}: {e}")
         
