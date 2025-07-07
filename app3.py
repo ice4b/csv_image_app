@@ -22,6 +22,8 @@ if csv_file:
     # Supón que hay una columna llamada 'image' con rutas relativas o absolutas
     image_column = st.selectbox("Selecciona la columna con imágenes codificadas en base64", df.columns)
 
+    name_column = st.selectbox("Selecciona la columna del nombre", df.columns)
+
     if image_column:
         st.subheader("Vista de previa de imágenes")
 
@@ -33,7 +35,7 @@ if csv_file:
                     img_data = base64.b64decode(row[image_column])
                     img = Image.open(BytesIO(img_data))
                     # st.image(img, caption=f"Imagen {idx}", use_container_width=True)    # The use_column_width parameter has been deprecated and will be removed in a future release. Please utilize the use_container_width parameter instead.
-                    st.image(img, caption=f"{idx} {row['name']}", use_container_width=True)    # The use_column_width parameter has been deprecated and will be removed in a future release. Please utilize the use_container_width parameter instead.
+                    st.image(img, caption=f"{idx} {row[name_column]}", use_container_width=True)    # The use_column_width parameter has been deprecated and will be removed in a future release. Please utilize the use_container_width parameter instead.
                 except Exception as e:
                     st.warning(f"Error al mostrar imagen {idx}: {e}")
         
@@ -46,7 +48,7 @@ if csv_file:
             # Guardar imágenes
             filenames = []
             for idx, b64_str in enumerate(df[image_column]):
-                filename = f"{idx} {df['name'][idx]}.png"
+                filename = f"{idx} {df[name_column][idx]}.png"
                 path = os.path.join(temp_folder, filename)
                 if decode_and_save_image(b64_str, temp_folder, filename):
                     filenames.append(path)
