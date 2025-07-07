@@ -38,6 +38,7 @@ if csv_file:
                     img = Image.open(BytesIO(img_data))
                     # st.image(img, caption=f"Imagen {idx}", use_container_width=True)    # The use_column_width parameter has been deprecated and will be removed in a future release. Please utilize the use_container_width parameter instead.
                     st.image(img, caption=f"{idx} {row[name_column]} ${row[price_column]}", use_container_width=True)    # The use_column_width parameter has been deprecated and will be removed in a future release. Please utilize the use_container_width parameter instead.
+                    st.text(f"${row[price_column]}")
                 except Exception as e:
                     st.warning(f"Error al mostrar imagen {idx}: {e}")
         
